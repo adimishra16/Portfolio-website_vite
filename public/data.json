@@ -1,0 +1,91 @@
+{
+  "personal": {
+    "name": "Aditya Mishra",
+    "title": "Full Stack Developer",
+    "bio": "Full-Stack Developer skilled in Java, React.js, and .NET Core with hands-on experience building scalable applications. Strong foundation in DSA and system design, backed by competitive programming expertise and real-world project delivery.",
+    "location": "Ahmedabad, India",
+    "email": "adityamishra16103@gmail.com",
+    "photo": "/placeholder.svg",
+    "resume": "/Aditya-Mishra.pdf"
+  },
+  "social": {
+    "github": "https://github.com/adimishra16",
+    "linkedin": "https://www.linkedin.com/in/adimishra16/",
+    "twitter": "https://x.com/Adi_mishra16",
+    "email": "adityamishra16103@gmail.com"
+  },
+ "skills": [
+  "Java",
+  "JavaScript",
+  "TypeScript",
+  "React.js",
+  "Next.js",
+  "Node.js",
+  "Express.js",
+  "HTML5",
+  "CSS3",
+  "Tailwind CSS",
+  "MongoDB",
+  "MySQL",
+  "PostgreSQL",
+  "REST API",
+  "GraphQL",
+  "Docker",
+  "AWS",
+  "Git",
+  "GitHub",
+  "Data Structures & Algorithms",
+  "OOP",
+  "DBMS"
+],
+  "projects": [
+    {
+    "id": 1,
+    "title": "PlayTracker",
+    "description": "A web-based cricket scoreboard management application that allows users to track live match scores, manage teams, and view player statistics efficiently.",
+    "tech": ["React.js", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
+    "image": "/Playtracker.png",
+    "liveUrl": "https://example.com",
+    "githubUrl": "https://github.com/adimishra16/PlaytTacker",
+    "featured": false
+  },
+    {
+  "id": 2,
+  "title": "Capstone Project Management System",
+  "description": "A web-based system for managing college capstone projects, allowing students and mentors to track tasks, submit updates, and collaborate efficiently in real-time.",
+  "tech": ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+  "image": "/capstone.png",
+  "liveUrl": "https://example.com",
+  "githubUrl": "https://github.com/adimishra16/CapstoneProjectManagementSystem",
+  "featured": true
+},
+   {
+  "id": 3,
+  "title": "MedicPulse",
+  "description": "A patient management application allowing users to register, book, and manage appointments efficiently, with real-time SMS notifications and secure file uploads.",
+  "tech": ["Next.js", "TypeScript", "Tailwind CSS", "ShadCN", "Appwrite", "Twilio"],
+  "image": "/MedicPulse.png",
+  "liveUrl": "https://example.com",
+  "githubUrl": "https://github.com/adimishra16/care-pulse",
+  "featured": true
+  }
+  ],
+  "experience": [
+    {
+      "company": "Sarjen Systems Pvt Ltd",
+      "position": "Software Developer",
+      "period": "Aug 2025 - Present",
+      "description": "Developed and optimized full-stack web applications, enhancing performance and user experience through efficient coding and scalable solutions."
+    },
+    {
+      "company": "Sarjen Systems Pvt Ltd",
+      "position": "Software Developer Intern",
+      "period": "Jan 2025 -Jul 2025",
+      "description": "Contributed to end-to-end software development by implementing features, fixing bugs, and collaborating on real-world projects using modern technologies."
+    }
+  ],
+  "theme": {
+    "primaryColor": "purple",
+    "darkMode": true
+  }
+}
