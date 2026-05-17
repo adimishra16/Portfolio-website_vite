@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ export const ProjectCard = ({
   githubUrl,
 }: ProjectCardProps) => {
   return (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300">
+    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
       <div className="relative overflow-hidden aspect-video">
         <img
           src={image}
@@ -29,14 +29,6 @@ export const ProjectCard = ({
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 gap-2">
-          {liveUrl && (
-            <Button size="sm" variant="secondary" asChild>
-              <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Live Demo
-              </a>
-            </Button>
-          )}
           {githubUrl && (
             <Button size="sm" variant="secondary" asChild>
               <a href={githubUrl} target="_blank" rel="noopener noreferrer">
