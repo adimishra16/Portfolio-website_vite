@@ -1,156 +1,111 @@
 import { useState } from "react";
-import { Mail, MapPin, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+import type { PortfolioData } from "@/content/portfolio";
 
 interface ContactProps {
-  data: any;
+  data: PortfolioData;
 }
 
 export const Contact = ({ data }: ContactProps) => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [sentHint, setSentHint] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Create mailto link
-    const mailtoLink = `mailto:${data.personal.email}?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    const mailtoLink = `mailto:${data.personal.email}?subject=Hello from ${formData.name}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
     )}`;
-    
     window.location.href = mailtoLink;
-    
-    toast({
-      title: "Opening email client...",
-      description: "Your default email client will open with the message.",
-    });
-    
+    setSentHint(true);
     setFormData({ name: "", email: "", message: "" });
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-20 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h1>
-          <p className="text-lg text-muted-foreground">
-            Have a question or want to work together?
-          </p>
+    <div className="mx-auto max-w-site px-5 pb-24 pt-16 md:px-8 md:pt-24">
+      <header className="max-w-2xl animate-rise">
+        <p className="font-mono-ui text-xs uppercase tracking-[0.16em] text-signal">Contact</p>
+        <h1 className="font-display mt-3 text-4xl font-bold tracking-tight text-ink md:text-6xl">
+          Let&apos;s talk
+        </h1>
+        <div className="animate-draw mt-5 flex items-center gap-2">
+          <span className="h-[3px] w-20 bg-signal" />
+          <span className="h-[3px] w-8 bg-blueprint" />
+          <span className="h-[3px] w-3 bg-cyan" />
         </div>
+        <p className="mt-6 text-lg leading-relaxed text-muted">
+          Roles, collaborations, or a quick question about how I work — write anytime.
+        </p>
+      </header>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <Card className="animate-scale-in">
-            <CardHeader>
-              <CardTitle>Send a Message</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Input
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div>
-                  <Textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={6}
-                    required
-                  />
-                </div>
-                <Button type="submit" className="w-full group">
-                  Send Message
-                  <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+      <div className="mt-14 grid gap-14 lg:grid-cols-[1fr_0.85fr]">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <label className="block">
+            <span className="font-mono-ui text-xs uppercase tracking-[0.14em] text-muted">Name</span>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="mt-2 w-full border border-line bg-paper/80 px-4 py-3 text-ink outline-none transition-all focus:border-signal focus:shadow-[3px_3px_0_0_hsl(var(--signal)/0.25)]"
+            />
+          </label>
+          <label className="block">
+            <span className="font-mono-ui text-xs uppercase tracking-[0.14em] text-muted">Email</span>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="mt-2 w-full border border-line bg-paper/80 px-4 py-3 text-ink outline-none transition-all focus:border-signal focus:shadow-[3px_3px_0_0_hsl(var(--signal)/0.25)]"
+            />
+          </label>
+          <label className="block">
+            <span className="font-mono-ui text-xs uppercase tracking-[0.14em] text-muted">Message</span>
+            <textarea
+              name="message"
+              rows={6}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              className="mt-2 w-full resize-y border border-line bg-paper/80 px-4 py-3 text-ink outline-none transition-all focus:border-signal focus:shadow-[3px_3px_0_0_hsl(var(--signal)/0.25)]"
+            />
+          </label>
+          <button type="submit" className="btn-primary">
+            Send message
+          </button>
+          {sentHint && (
+            <p className="font-mono-ui text-xs text-muted">Opening your email client…</p>
+          )}
+        </form>
 
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <Card className="animate-scale-in">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Email</h3>
-                    <a
-                      href={`mailto:${data.personal.email}`}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {data.personal.email}
-                    </a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="animate-scale-in">
-              <CardContent className="pt-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Location</h3>
-                    <p className="text-muted-foreground">{data.personal.location}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="animate-scale-in bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
-              <CardContent className="pt-6">
-                <h3 className="font-semibold mb-3 text-lg">Let's collaborate!</h3>
-                <p className="text-muted-foreground mb-4">
-                  I'm always open to discussing new projects, creative ideas, or
-                  opportunities to be part of your vision.
-                </p>
-                <Button variant="outline" className="w-full" asChild>
-                  <a href={data.personal.resume} download>
-                    Download Resume
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        <aside className="border border-line bg-gradient-to-br from-[hsl(14_90%_52%/0.08)] via-[hsl(var(--paper-deep)/0.6)] to-[hsl(205_72%_38%/0.1)] p-6 shadow-[6px_6px_0_0_hsl(var(--blueprint)/0.15)] md:p-8">
+          <h2 className="font-display text-xl font-semibold text-ink">Direct</h2>
+          <dl className="mt-6 space-y-5">
+            <div>
+              <dt className="font-mono-ui text-xs uppercase tracking-[0.14em] text-muted">Email</dt>
+              <dd className="mt-1">
+                <a href={`mailto:${data.personal.email}`} className="text-ink hover:text-signal">
+                  {data.personal.email}
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono-ui text-xs uppercase tracking-[0.14em] text-muted">Location</dt>
+              <dd className="mt-1 text-ink">{data.personal.location}</dd>
+            </div>
+          </dl>
+          <a
+            href={data.personal.resume}
+            download
+            className="mt-8 inline-flex font-mono-ui text-xs uppercase tracking-[0.14em] text-blueprint underline-offset-4 hover:text-signal hover:underline"
+          >
+            Download CV
+          </a>
+        </aside>
       </div>
     </div>
   );

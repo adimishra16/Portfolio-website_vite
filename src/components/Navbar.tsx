@@ -1,95 +1,91 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X, Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
-interface NavbarProps {
-  theme: string;
-  toggleTheme: () => void;
-}
+const links = [
+  { to: "/", label: "Home", end: true },
+  { to: "/projects", label: "Work" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+];
 
-export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const links = [
-    { to: "/", label: "Home" },
-    { to: "/projects", label: "Projects" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
-  ];
+export const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <NavLink to="/" className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Portfolio
-          </NavLink>
+    <header className="sticky top-0 z-50 border-b border-line/80 bg-[hsl(var(--paper)/0.9)] backdrop-blur-md">
+      <div className="h-[3px] w-full bg-gradient-to-r from-signal via-blueprint to-cyan" />
+      <div className="mx-auto flex h-16 max-w-site items-center justify-between px-5 md:px-8">
+        <NavLink
+          to="/"
+          className="font-display text-lg font-semibold tracking-tight text-ink transition-colors hover:text-signal"
+        >
+          Aditya<span className="text-signal">.</span>Mishra
+        </NavLink>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+        <div className="flex items-center gap-3 md:gap-6">
+          <nav className="hidden items-center gap-8 md:flex">
             {links.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
+                end={link.end}
                 className={({ isActive }) =>
-                  `text-sm font-medium transition-colors hover:text-primary ${
-                    isActive ? "text-primary" : "text-foreground/70"
+                  `group relative pb-1 font-mono-ui text-[13px] uppercase tracking-[0.14em] transition-colors ${
+                    isActive ? "text-signal" : "text-muted hover:text-ink"
                   }`
                 }
               >
-                {link.label}
+                {({ isActive }) => (
+                  <>
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-0 h-[2px] bg-signal transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </>
+                )}
               </NavLink>
             ))}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="rounded-full"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-          </div>
+          </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="rounded-full"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="border border-line bg-paper-deep/60 p-2 text-ink transition-all hover:-translate-y-0.5 hover:border-signal hover:text-signal"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Light mode" : "Dark mode"}
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
+          <button
+            type="button"
+            className="font-mono-ui text-[13px] uppercase tracking-[0.14em] text-ink transition-colors hover:text-signal md:hidden"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label="Toggle menu"
+          >
+            {open ? "Close" : "Menu"}
+          </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 animate-fade-in">
+      {open && (
+        <nav className="animate-rise border-t border-line bg-[hsl(var(--paper)/0.95)] px-5 py-4 md:hidden">
+          <div className="flex flex-col gap-3">
             {links.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                onClick={() => setIsOpen(false)}
+                end={link.end}
+                onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `block py-2 text-sm font-medium transition-colors hover:text-primary ${
-                    isActive ? "text-primary" : "text-foreground/70"
+                  `font-mono-ui text-sm uppercase tracking-[0.14em] transition-colors ${
+                    isActive ? "text-signal" : "text-ink hover:text-blueprint"
                   }`
                 }
               >
@@ -97,8 +93,8 @@ export const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
               </NavLink>
             ))}
           </div>
-        )}
-      </div>
-    </nav>
+        </nav>
+      )}
+    </header>
   );
 };

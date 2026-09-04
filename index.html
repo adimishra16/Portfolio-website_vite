@@ -3,20 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio - Full Stack Developer</title>
-    <meta name="description" content="Professional portfolio showcasing web development projects and skills" />
-    <meta name="author" content="Portfolio" />
-
-    <meta property="og:title" content="Portfolio - Full Stack Developer" />
-    <meta property="og:description" content="Professional portfolio showcasing web development projects and skills" />
+    <title>Aditya Mishra — Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Aditya Mishra — Full stack developer building web apps with React, TypeScript, and modern backends. Based in Ahmedabad."
+    />
+    <meta name="author" content="Aditya Mishra" />
+    <meta property="og:title" content="Aditya Mishra — Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full stack portfolio — React, TypeScript, APIs, and deliberate product craft."
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
+    <meta property="og:image" content="/MedicPulse.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:site" content="@Adi_mishra16" />
+    <meta name="twitter:title" content="Aditya Mishra — Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full stack portfolio — React, TypeScript, APIs, and deliberate product craft."
+    />
+    <meta name="twitter:image" content="/MedicPulse.png" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("portfolio_theme");
+          var dark =
+            stored === "dark" ||
+            (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

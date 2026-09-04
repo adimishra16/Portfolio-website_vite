@@ -1,48 +1,52 @@
 import { ProjectCard } from "@/components/ProjectCard";
-import { Button } from "@/components/ui/button";
-import { Github, ExternalLink } from "lucide-react";
+import { Reveal } from "@/components/Reveal";
+import type { PortfolioData } from "@/content/portfolio";
 
 interface ProjectsProps {
-  data: any;
+  data: PortfolioData;
 }
 
 export const Projects = ({ data }: ProjectsProps) => {
   return (
-    <div className="min-h-screen pt-24 pb-20 px-4">
-      <div className="container mx-auto">
-        <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">My Projects</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A collection of projects I've worked on, showcasing various technologies and solutions.
-          </p>
+    <div className="mx-auto max-w-site px-5 pb-24 pt-16 md:px-8 md:pt-24">
+      <header className="max-w-2xl animate-rise">
+        <p className="font-mono-ui text-xs uppercase tracking-[0.16em] text-cyan">Work</p>
+        <h1 className="font-display mt-3 text-4xl font-bold tracking-tight text-ink md:text-6xl">
+          Projects
+        </h1>
+        <div className="animate-draw mt-5 flex items-center gap-2">
+          <span className="h-[3px] w-20 bg-signal" />
+          <span className="h-[3px] w-8 bg-blueprint" />
+          <span className="h-[3px] w-3 bg-cyan" />
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {data.projects.map((project: any) => (
-            <ProjectCard key={project.id} {...project} />
-          ))}
-        </div>
+        <p className="mt-6 text-lg leading-relaxed text-muted">
+          Product interfaces with an eye for hierarchy, state, and the small interactions that make
+          software feel finished.
+        </p>
+      </header>
 
-        {/* CTA Section for GitHub */}
-        <div className="mt-20 relative overflow-hidden rounded-3xl bg-secondary/30 border border-border/50 p-8 md:p-12 text-center animate-fade-in">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
-          
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="bg-background p-4 rounded-full mb-6 inline-flex shadow-sm border border-border/50">
-              <Github className="w-8 h-8 md:w-10 md:h-10" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Want to see more?</h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">
-              Check out my GitHub profile to explore more open-source projects, experiments, and contributions.
-            </p>
-            <Button size="lg" className="group rounded-full px-8" asChild>
-              <a href={data.social?.github || "https://github.com"} target="_blank" rel="noopener noreferrer">
-                Visit My GitHub
-                <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </a>
-            </Button>
-          </div>
-        </div>
+      <div className="mt-16 border-t border-line">
+        {data.projects.map((project, index) => (
+          <Reveal key={project.id} delay={(index % 3) as 0 | 1 | 2}>
+            <ProjectCard {...project} index={index} />
+          </Reveal>
+        ))}
       </div>
+
+      {data.social.github && (
+        <p className="mt-16 font-mono-ui text-sm text-muted">
+          More experiments on{" "}
+          <a
+            href={data.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blueprint underline-offset-4 transition-colors hover:text-signal hover:underline"
+          >
+            GitHub
+          </a>
+          .
+        </p>
+      )}
     </div>
   );
 };

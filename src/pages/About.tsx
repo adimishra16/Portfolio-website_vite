@@ -1,76 +1,93 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import type { PortfolioData } from "@/content/portfolio";
 
 interface AboutProps {
-  data: any;
+  data: PortfolioData;
 }
 
 export const About = ({ data }: AboutProps) => {
   return (
-    <div className="min-h-screen pt-24 pb-20 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-12 animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">About Me</h1>
-          <p className="text-lg text-muted-foreground">
-            Learn more about my background and experience
+    <div className="mx-auto max-w-site px-5 pb-24 pt-16 md:px-8 md:pt-24">
+      <header className="max-w-2xl animate-rise">
+        <p className="font-mono-ui text-xs uppercase tracking-[0.16em] text-blueprint">About</p>
+        <h1 className="font-display mt-3 text-4xl font-bold tracking-tight text-ink md:text-6xl">
+          Building interfaces with intent
+        </h1>
+        <div className="animate-draw mt-5 flex items-center gap-2">
+          <span className="h-[3px] w-20 bg-signal" />
+          <span className="h-[3px] w-8 bg-blueprint" />
+          <span className="h-[3px] w-3 bg-cyan" />
+        </div>
+      </header>
+
+      <div className="mt-14 grid gap-12 lg:grid-cols-[200px_1fr] lg:gap-16">
+        <img
+          src={data.personal.photo}
+          alt={data.personal.name}
+          className="aspect-square w-40 border border-line object-cover shadow-[6px_6px_0_0_hsl(var(--signal)/0.25)] transition-transform duration-500 hover:-translate-y-1 lg:w-full"
+        />
+
+        <div className="max-w-2xl">
+          <p className="text-xl leading-relaxed text-ink md:text-2xl">{data.personal.bio}</p>
+          <p className="mt-6 text-base leading-relaxed text-muted">
+            I care about how a page feels under a thumb, how a form recovers from an error, and how
+            a codebase stays kind to the next person who opens it. Full stack is where product,
+            design, and engineering meet — that&apos;s the seat I want.
+          </p>
+          <p className="mt-4 font-mono-ui text-xs uppercase tracking-[0.14em] text-blueprint">
+            Based in {data.personal.location}
           </p>
         </div>
+      </div>
 
-        {/* Bio Section */}
-        <Card className="mb-8 animate-scale-in">
-          <CardHeader>
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <img
-                src={data.personal.photo}
-                alt={data.personal.name}
-                className="w-32 h-32 rounded-full object-cover border-4 border-primary/20"
-              />
-              <div className="text-center md:text-left">
-                <h2 className="text-2xl font-bold mb-2">{data.personal.name}</h2>
-                <p className="text-xl text-primary mb-2">{data.personal.title}</p>
-                <p className="text-muted-foreground">{data.personal.location}</p>
+      <section className="mt-20 border-t border-line pt-12">
+        <h2 className="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+          Experience
+        </h2>
+        <ul className="mt-10 space-y-0">
+          {data.experience.map((exp) => (
+            <li
+              key={`${exp.company}-${exp.period}`}
+              className="grid gap-2 border-t border-line py-8 md:grid-cols-[200px_1fr] md:gap-10"
+            >
+              <p className="font-mono-ui text-xs uppercase tracking-[0.14em] text-muted">{exp.period}</p>
+              <div>
+                <h3 className="font-display text-xl font-semibold text-ink">{exp.position}</h3>
+                <p className="mt-1 text-sm text-signal">{exp.company}</p>
+                <p className="mt-3 max-w-xl text-base leading-relaxed text-muted">{exp.description}</p>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg leading-relaxed">{data.personal.bio}</p>
-          </CardContent>
-        </Card>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-        {/* Experience Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-6">Experience</h2>
-          <div className="space-y-6">
-            {data.experience.map((exp: any, index: number) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                    <h3 className="text-xl font-bold">{exp.position}</h3>
-                    <Badge variant="secondary">{exp.period}</Badge>
-                  </div>
-                  <p className="text-primary font-medium mb-2">{exp.company}</p>
-                  <p className="text-muted-foreground">{exp.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Skills Section */}
-        <div>
-          <h2 className="text-2xl font-bold mb-6">Technical Skills</h2>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex flex-wrap gap-3">
-                {data.skills.map((skill: string) => (
-                  <Badge key={skill} variant="secondary" className="px-4 py-2 text-sm">
-                    {skill}
-                  </Badge>
+      <section className="mt-8 border-t border-line pt-12">
+        <h2 className="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">
+          Skills
+        </h2>
+        <div className="mt-10 grid gap-10 md:grid-cols-3">
+          {data.skills.map((group) => (
+            <div key={group.label}>
+              <h3 className="font-mono-ui text-xs uppercase tracking-[0.16em] text-signal">{group.label}</h3>
+              <ul className="mt-4 space-y-2">
+                {group.items.map((item) => (
+                  <li key={item} className="text-ink/85">
+                    {item}
+                  </li>
                 ))}
-              </div>
-            </CardContent>
-          </Card>
+              </ul>
+            </div>
+          ))}
         </div>
+      </section>
+
+      <div className="mt-16">
+        <a
+          href={data.personal.resume}
+          download
+          className="inline-flex border border-ink/25 px-6 py-3 font-mono-ui text-xs uppercase tracking-[0.16em] text-ink transition-colors hover:border-signal hover:text-signal"
+        >
+          Download CV
+        </a>
       </div>
     </div>
   );
